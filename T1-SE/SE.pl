@@ -22,6 +22,8 @@ problema(drivers_de_rede_desatualizados).
 % Ícone de Wi-Fi ou Cabo Desconectado.	Vídeos com buffering.	Necessidade de reconectar manualmente.			Equipamento não liga.	Dispositivos conectam, mas sem navegação.	Nenhuma conexão à internet em alguns dispositivos.					Dispositivos desconhecidos na rede.			
 % Mensagem "Sem Internet".	Ping alto em jogos online.														
 
+% associando sintomas aos seus respectivos problemas
+
 sintoma(dificuldade_no_acesso_a_sites).
 sintoma(downloads_demorados).
 sintoma(desconexao_frequente).
@@ -29,7 +31,7 @@ sintoma(desconectar_longe_do_roteador).
 sintoma(flutuacoes_na_velocidade).
 sintoma(led_de_erro_ou_falha).
 sintoma(acesso_limitado_a_internet).
-sintoma(conflito_de_ip).
+%sintoma(conflito_de_ip).
 sintoma(dispositivos_inacessiveis).
 sintoma(conexao_intermitente).
 sintoma(sem_conexao).
@@ -79,3 +81,33 @@ causa(interrupcao_no_provedor).
 causa(muitos_dispositivos_conectados).
 causa(roteador_mal_posicionado).
 causa(equipamento_antigo).
+
+
+diagnostico(dificuldade_no_acesso_a_sites, falta_de_conexao).
+diagnostico(downloads_demorados, conexao_lenta).
+diagnostico(desconexao_frequente, quedas_frequentes).
+diagnostico(desconectar_longe_do_roteador, curto_alcance).
+diagnostico(flutuacoes_na_velocidade, velocidade_inconsistente).
+diagnostico(led_de_erro_ou_falha, falhas_no_roteador_ou_modem).
+diagnostico(acesso_limitado_a_internet, configuracao_incorreta).
+diagnostico(dispositivos_inacessiveis, dispositivos_nao_se_comunicam).
+diagnostico(conexao_intermitente, falhas_nos_cabos_de_rede).
+diagnostico(sem_conexao, falhas_nos_cabos_de_rede).
+diagnostico(lentidao, rede_comprometida_ou_ataques).
+diagnostico(navegacao_limitada, configuracao_incorreta).
+diagnostico(icone_de_wifi_desconectado, falta_de_conexao).
+diagnostico(icone_de_cabo_desconectado, falta_de_conexao).
+diagnostico(videos_com_buffering, conexao_lenta).
+diagnostico(precisa_reconectar_manualmente, quedas_frequentes).
+diagnostico(equipamento_nao_liga, falhas_no_roteador_ou_modem).
+diagnostico(conexao_sem_navegacao, configuracao_incorreta).
+diagnostico(sem_conexao_em_alguns_dispositivos, conflito_de_ip).
+diagnostico(dispositivos_desconhecidos_na_rede, rede_comprometida_ou_ataques).
+diagnostico(mensagem_sem_internet, falta_de_conexao).
+%diagnostico(ping_alto).
+
+
+%diagnostico(sintoma, X).
+
+
+
