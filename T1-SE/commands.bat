@@ -1,5 +1,2 @@
-(load CLIPS.clp)
-(reset)
+(load "CLIPS.clp")
 (run)
-
-
