@@ -1,14 +1,17 @@
 % sintomas
-% Luzes do hardware não acendem e/ou placa não é reconhecida pelo SO
+% Luzes do hardware não acendem
+% placa não é reconhecida pelo SO
 % Equipamento fora da rede
-% Lentidão e/ou problemas de comunicação
-% Nenhuma luz de indicação no Switch e/ou computadores não conectam à rede
+% Lentidão 
+% problemas de comunicação
+% Nenhuma luz de indicação no Switch 
+% computadores não conectam à rede
 % Impossibilidade de se conectar à rede Wi-Fi
 % Impossibilidade de se conectar à rede interna
 % impededimento a conexão
 % Dificuldades de acesso a arquivos na rede	
-% Desempenho lento
-% Programas não abrem e/ou crasham logo após abrirem
+% Programas não abrem
+%  crasham logo após abrirem
 sintoma(luzes_do_hardware_nao_acendem).
 sintoma(placa_nao_reconhecida_pelo_so).
 sintoma(equipamento_fora_da_rede).
@@ -20,7 +23,6 @@ sintoma(impossibilidade_de_se_conectar_a_rede_wifi).
 sintoma(impossibilidade_de_se_conectar_a_rede_interna).
 sintoma(impedimento_a_conexao).
 sintoma(dificuldades_de_acesso_a_arquivos_na_rede).
-sintoma(lentidao).
 sintoma(programas_nao_abrem).
 sintoma(programas_crasham_logo_apos_abrirem).
 
