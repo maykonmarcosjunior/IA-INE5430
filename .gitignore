@@ -1,2 +1,3 @@
 env/
-AG/solution.txt
+__pycache__/
+solution.txt
