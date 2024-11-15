@@ -7,9 +7,10 @@ def main():
         print(f"{i + 1}: {test}")
     test = input()
     if test == "": run()
-    while int(test) < -1 or int(test) > len(test_cases):
-        print("Invalid test. Please enter a valid test case.")
-        test = input()
+    else:
+        while int(test) < -1 or int(test) > len(test_cases):
+            print("Invalid test. Please enter a valid test case.")
+            test = input()
         
     run(test)
     

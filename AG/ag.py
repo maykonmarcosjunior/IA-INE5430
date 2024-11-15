@@ -1,6 +1,7 @@
 import pygad
 import numpy
 from functools import partial
+import time
 
 # defines multiple test cases
 test_cases = [
@@ -23,21 +24,27 @@ gene_space = [0, 1]
 last_fitness = 0
 
 def run(test_type=None):
-    if test_type == None or test_type == '':    
-        test(test_cases)
+    
+    if test_type == None or test_type == '':   
+        run_tests = test_cases 
 
     elif test_type == '0':
-        # picks a random test from test_cases
-        test([test_cases[numpy.random.randint(0, len(test_cases))]])
+        run_tests = [test_cases[numpy.random.randint(0, len(test_cases))]]
 
     elif test_type == '-1':
-        n_values = numpy.random.randint(30, 50)
+        n_values = numpy.random.randint(200, 300)
         values = numpy.random.randint(1, 100, n_values)
         target = numpy.random.randint(1, 100)
-        test([(values, target)])
+        run_tests = [(values, target)]
 
     else:
-        test([test_cases[int(test_type) - 1]])
+        run_tests = [test_cases[int(test_type) - 1]]
+
+    begin = time.time()
+    test(run_tests)
+    end = time.time()    
+    print(f"Time running: {end - begin}")  
+   
 
 def test(cases):
 
@@ -70,11 +77,9 @@ def test(cases):
             sol_per_pop=sol_per_pop,
             num_genes=num_genes,
             gene_space=gene_space,
-            #            on_generation=callback_generation,
             mutation_percent_genes=20,
             mutation_probability=0.1,
-            delay_after_gen=0,
-            
+            delay_after_gen=0,         
         )
 
         # Running the GA to optimize the parameters of the function.
