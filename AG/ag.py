@@ -22,22 +22,25 @@ gene_space = [0, 1]
 
 last_fitness = 0
 
-
 def run(test_type=None):
-    if test_type == '0' or test_type == '':    
+    if test_type == None or test_type == '':    
         test(test_cases)
 
-    elif test_type == '1':
+    elif test_type == '0':
         # picks a random test from test_cases
         test([test_cases[numpy.random.randint(0, len(test_cases))]])
+
+    elif test_type == '-1':
+        n_values = numpy.random.randint(30, 50)
+        values = numpy.random.randint(1, 100, n_values)
+        target = numpy.random.randint(1, 100)
+        test([(values, target)])
 
     else:
         test([test_cases[int(test_type) - 1]])
 
-
 def test(cases):
 
-    # delete solution.txt if exists
     file = open("solution.txt", "w")
     file.close()
 
@@ -71,6 +74,7 @@ def test(cases):
             mutation_percent_genes=20,
             mutation_probability=0.1,
             delay_after_gen=0,
+            
         )
 
         # Running the GA to optimize the parameters of the function.
@@ -92,6 +96,7 @@ def test(cases):
         ga_instance.plot_fitness(
             title="Test case {inputs}, {output}".format(inputs=inputs, output=output)
         )
+
         write_solution(inputs, output, solution, solution_fitness, prediction)
 
 
