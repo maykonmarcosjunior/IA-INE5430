@@ -37,13 +37,30 @@ def run(test_type=None):
         target = numpy.random.randint(1, 100)
         run_tests = [(values, target)]
 
+    elif test_type == '-2':
+        print("Generating giga test...")
+        n_values = 1000
+        values = numpy.random.randint(1, 250, n_values)
+        # Cria um subconjunto cuja soma faz parte do values
+        subset = [numpy.random.choice([True, False]) for _ in range(1000)]
+        subset_sum = 0
+        index = 0
+        for b in subset:
+            if b:
+                subset_sum += values[index]
+            index += 1
+
+        target = subset_sum
+        run_tests = [(values, target)]
+        print("Giga test generated.")
+
     else:
         run_tests = [test_cases[int(test_type) - 1]]
 
     begin = time.time()
     test(run_tests)
     end = time.time()    
-    print(f"Time running: {end - begin}")  
+    print(f"Time running: {(end - begin):.2f} seconds")  
    
 
 def test(cases):
@@ -127,7 +144,7 @@ def write_solution(inputs, desired_output, solution, solution_fitness, predictio
     file.close()
 
 
-def callback_generation(ga_instance):
+def callback_generation(ga_instance: pygad.GA):
     global last_fitness
     print(f"Generation = {ga_instance.generations_completed}")
     print(f"Fitness    = {ga_instance.best_solution()[1]}")
