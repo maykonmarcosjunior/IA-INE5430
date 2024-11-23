@@ -1,3 +1,6 @@
 pygad
 numpy
 matplotlib
+h5py
+scikit-learn
+tensorflow
