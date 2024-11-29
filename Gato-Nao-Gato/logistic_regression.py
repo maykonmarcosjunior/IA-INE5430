@@ -1,27 +1,6 @@
-import h5py
 import numpy as np
-import matplotlib.pyplot as plt
 
-
-# Função para carregar os dados do arquivo H5
-def load_data(training_file, test_file):
-    """
-    Carrega os dados de treinamento e teste a partir de arquivos .h5.
-    
-    Parameters:
-        training_file (str): Caminho para o arquivo de treinamento.
-        test_file (str): Caminho para o arquivo de teste.
-    
-    Returns:
-        tuple: Dados de treinamento (X, Y) e teste (X, Y).
-    """
-    with h5py.File(training_file, "r") as train_h5:
-        train_x = np.array(train_h5["train_set_x"][:])  # Imagens de treinamento
-        train_y = np.array(train_h5["train_set_y"][:])  # Rótulos de treinamento
-    with h5py.File(test_file, "r") as test_h5:
-        test_x = np.array(test_h5["test_set_x"][:])  # Imagens de teste
-        test_y = np.array(test_h5["test_set_y"][:])  # Rótulos de teste
-    return train_x, train_y, test_x, test_y
+from shared import load_data, plot_progress, plot_confusion_matrix
 
 # Função para normalizar e achatar as imagens
 def preprocess_data(train_x, test_x):
@@ -110,7 +89,6 @@ def train(w, b, X, Y, num_iterations, learning_rate, lambd=0.1):
         # Registrar custo a cada 100 iterações
         if i % 100 == 0:
             costs.append(cost)
-            print(f"Iteration {i}: Cost = {cost:.6f}")
     
     return w, b, costs
 
@@ -129,10 +107,10 @@ def predict(w, b, X):
     Z = np.dot(w.T, X) + b  # Soma ponderada
     A = sigmoid(Z)  # Probabilidade prevista
     Y_pred = (A > 0.5).astype(int)  # Limiar de 0.5
-    return Y_pred
+    return Y_pred.reshape(-1)
 
 # Função principal
-def logistic_regression(training_file, test_file, num_iterations=2000, learning_rate=0.005):
+def logistic_regression(training_file, test_file, num_iterations=2000, learning_rate=0.001):
     """
     Executa o treinamento e avaliação do modelo de regressão logística.
     
@@ -148,7 +126,7 @@ def logistic_regression(training_file, test_file, num_iterations=2000, learning_
     train_x, train_y, test_x, test_y = load_data(training_file, test_file)
     train_x, test_x = preprocess_data(train_x, test_x)
     train_y = train_y.reshape(1, -1)  # Garantir dimensão correta
-    test_y = test_y.reshape(1, -1)
+    test_y = test_y.reshape(-1)
     
     # Inicializar parâmetros
     n_x = train_x.shape[0]  # Número de entradas (pixels)
@@ -162,21 +140,16 @@ def logistic_regression(training_file, test_file, num_iterations=2000, learning_
     test_pred = predict(w, b, test_x)
     
     # Calcular precisão
-    train_accuracy = 100 - np.mean(np.abs(train_pred - train_y)) * 100
-    test_accuracy = 100 - np.mean(np.abs(test_pred - test_y)) * 100
-    
+    train_accuracy = 100 - np.mean(np.abs(train_pred - train_y)) * 100    
     print(f"Train Accuracy: {train_accuracy:.2f}%")
+    test_accuracy = 100 - np.mean(np.abs(test_pred - test_y)) * 100
     print(f"Test Accuracy: {test_accuracy:.2f}%")
-    
-    # Plotar custo ao longo do tempo
-    plt.plot(costs)
-    plt.xlabel("Iterations (per 100)")
-    plt.ylabel("Cost")
-    plt.title("Cost Reduction Over Time")
-    plt.show()
-    
-    return w, b
+    return test_y, test_pred, costs
 
 # Exemplo de execução
 if __name__ == "__main__":
-    logistic_regression("train_catvnoncat.h5", "test_catvnoncat.h5")
+    test_y, test_pred, costs = logistic_regression(
+        "train_catvnoncat.h5", "test_catvnoncat.h5",
+        num_iterations=250, learning_rate=0.005)
+    plot_confusion_matrix(test_y, test_pred)
+    plot_progress([(costs, 'cost')], "Iterations (per 100)", "Cost", "Cost Reduction Over Time")
