@@ -40,7 +40,7 @@ def train_cat_classifier(training_file, test_file):
                         validation_split=0.1,  # Usar 10% dos dados de treino para validação
                         epochs=100,  # Número de épocas de treinamento
                         batch_size=32,  # Tamanho do lote para atualização dos pesos
-                        verbose=1 # 1: Mostrar barra de progresso
+                        verbose=0 # 1: Mostrar barra de progresso
                         )
     return history, model, test_y, test_x
 
