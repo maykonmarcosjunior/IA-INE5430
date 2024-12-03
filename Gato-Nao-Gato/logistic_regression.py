@@ -3,7 +3,7 @@ import numpy as np
 from shared import load_data, plot_progress, plot_confusion_matrix
 
 # Função para normalizar e achatar as imagens
-def preprocess_data(train_x, test_x):
+def preprocess_data(train_x: np.ndarray, test_x: np.ndarray):
     """
     Normaliza os valores das imagens (0-255 -> 0-1) e as achata para vetores.
     
